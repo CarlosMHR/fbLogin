@@ -27,7 +27,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        userTextField.delegate = self
+        passwordField.delegate = self
         //Redondear logo de FB
         logoImageView.layer.cornerRadius = logoImageView.bounds.height / 2
         logoImageView.clipsToBounds = true
@@ -38,8 +39,11 @@ class ViewController: UIViewController {
         contentLoginView.layer.cornerRadius = 3
         contentLoginView.clipsToBounds = true
         
+        configureCornerRadius(button: loginButton, color: primaryColor, cornerRadius: 5, colorSecundary: secundaryColor)
+        configureCornerRadius(button: createAccountButton, color: secundaryColor, cornerRadius: 5, colorSecundary: primaryColor)
+        
         //Editar propiedades de boton login
-        loginButton.layer.backgroundColor = primaryColor.cgColor
+        /*loginButton.layer.backgroundColor = primaryColor.cgColor
         loginButton.setTitleColor(secundaryColor, for: .normal)
         loginButton.layer.cornerRadius = 5
         loginButton.clipsToBounds = true
@@ -50,7 +54,7 @@ class ViewController: UIViewController {
         createAccountButton.layer.backgroundColor = secundaryColor.cgColor
         createAccountButton.setTitleColor(primaryColor, for: .normal)
         createAccountButton.layer.cornerRadius = 5
-        createAccountButton.clipsToBounds = true
+        createAccountButton.clipsToBounds = true*/
         
         
         //Editar propiedades de boton remember
@@ -58,21 +62,25 @@ class ViewController: UIViewController {
         
         separatorLoginView.layer.backgroundColor = grayColor.cgColor
         
+        }
+    
+    func configureCornerRadius(button: UIButton ,color: UIColor, cornerRadius: CGFloat, colorSecundary: UIColor){
         
-        
-        
-        
-        
-        
-      
-        
-        
-        
-        
-        
+        button.setTitleColor(colorSecundary, for: .normal)
+        button.layer.backgroundColor = color.cgColor
+        button.layer.cornerRadius = cornerRadius
+        button.clipsToBounds = true
         
     }
 
 
 }
 
+extension ViewController: UITextFieldDelegate{
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+    
+}
